@@ -8,10 +8,21 @@
       <li><%=dose.description%> || <%=dose.ingredient.name%> || <%= link_to "Remove",dose_path(dose),method: :delete, data: { confirm: "Are you sure?" } %></li>
     <% end %>
   </ul>
+  <li>Reviews of the restaurants:</li>
+  <ul>
+    <% @cocktail.reviews.each do |review| %>
+    <li><%= review.rating %> STARS || Review Description: <%= review.description %></li>
+    <% end %>
+  </ul>
 </ol>
+
+<!-- @cocktail.reviews = [#<Review id: 1, description: "Very good food", rating: 5, cocktail_id: 1, created_at: "2021-03-18 21:04:51.076288000 +0000", updated_at: "2021-03-18 21:04:51.076288000 +0000">,
+  #<Review id: 2, description: "sadsdasdssd", rating: 5, cocktail_id: 1, created_at: "2021-03-18 21:19:20.318876000 +0000", updated_at: "2021-03-18 21:19:20.318876000 +0000">]> -->
 
 <%= simple_form_for [@cocktail, @dose] do |f| %>
   <%= f.input :description %>
   <%= f.association :ingredient %>
   <%= f.submit "Create new dose", class: "btn btn-primary" %>
 <% end %>
+
+<%= link_to "Go back to cocktails' list", cocktails_path %>
