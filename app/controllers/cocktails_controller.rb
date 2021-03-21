@@ -15,6 +15,7 @@ class CocktailsController < ApplicationController
 
   def create
     @cocktail = Cocktail.new(cocktail_params)
+    Cloudinary::Uploader.upload(@cocktail.photo.key)
     if @cocktail.save
       redirect_to cocktail_path(@cocktail.id)
     else
@@ -25,6 +26,7 @@ class CocktailsController < ApplicationController
   private
 
   def cocktail_params
-    params.require(:cocktail).permit(:name)
+    params.require(:cocktail).permit(:name, :photo)
   end
+
 end
